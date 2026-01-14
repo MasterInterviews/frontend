@@ -1,0 +1,262 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { getCourse, getGroupedChapters } from "@/lib/data";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Footer } from "@/components/layout/Footer";
+import { ArrowRight, BookOpen, Clock, Lock, CheckCircle2, Sparkles } from "lucide-react";
+import { CourseIcon } from "@/components/course-icon";
+import { use, useEffect, useState } from "react";
+
+interface CoursePageProps {
+    params: Promise<{ course: string }>;
+}
+
+export default function CoursePage({ params }: CoursePageProps) {
+    const { course: courseSlug } = use(params);
+    const router = useRouter();
+    const course = getCourse(courseSlug);
+    const [completedChapters, setCompletedChapters] = useState<Set<string>>(new Set());
+
+    useEffect(() => {
+        if (course) {
+            const completed = new Set<string>();
+            course.chapters.forEach((chapter) => {
+                const key = `completed_${course.id}_${chapter.id}`;
+                if (typeof window !== 'undefined' && localStorage.getItem(key) === 'true') {
+                    completed.add(chapter.id);
+                }
+            });
+            setCompletedChapters(completed);
+            
+            // Listen for completion updates
+            const handleCompletion = (event: CustomEvent) => {
+                if (event.detail.courseId === course.id) {
+                    const updated = new Set<string>();
+                    course.chapters.forEach((chapter) => {
+                        const key = `completed_${course.id}_${chapter.id}`;
+                        if (typeof window !== 'undefined' && localStorage.getItem(key) === 'true') {
+                            updated.add(chapter.id);
+                        }
+                    });
+                    setCompletedChapters(updated);
+                }
+            };
+            
+            window.addEventListener('chapterCompleted', handleCompletion as EventListener);
+            return () => window.removeEventListener('chapterCompleted', handleCompletion as EventListener);
+        }
+    }, [course]);
+
+    useEffect(() => {
+        if (course && course.chapters.length > 0) {
+            router.replace(`/learn/${course.slug}/${course.chapters[0].slug}`);
+        }
+    }, [course, router]);
+
+    if (!course) {
+        return null;
+    }
+
+    const groupedChapters = getGroupedChapters(course);
+    const freeChapters = course.chapters.filter((ch) => !ch.isPremium);
+    const totalReadTime = course.chapters.reduce((sum, ch) => sum + ch.estimatedReadTime, 0);
+    const completedCount = completedChapters.size;
+    const progressPercent = course.chapters.length > 0 ? (completedCount / course.chapters.length) * 100 : 0;
+
+    return (
+        <main className="min-h-screen bg-background">
+            <div className="container mx-auto px-6 md:px-8 py-6 max-w-7xl">
+
+                {/* Back Nav */}
+                <Link href="/learn" className="inline-flex items-center text-base font-medium text-muted-foreground hover:text-foreground transition-colors mb-8 group">
+                    <ArrowRight className="h-4 w-4 mr-2 rotate-180 group-hover:-translate-x-0.5 transition-transform" />
+                    Back to Courses
+                </Link>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                    {/* Left Column (Hero + Curriculum) - Spans 8 cols */}
+                    <div className="lg:col-span-8 space-y-8">
+
+                        {/* Hero Section */}
+                        <div className="space-y-5">
+                            <div className="flex items-center gap-3">
+                                <Badge variant="outline" className="border-primary/20 text-primary bg-primary/5 px-3 py-1.5 text-sm uppercase tracking-wide font-semibold">
+                                    Learning Path
+                                </Badge>
+                                {freeChapters.length > 0 && (
+                                    <span className="text-sm font-medium text-green-600 dark:text-green-500 flex items-center gap-1.5">
+                                        <Sparkles className="h-4 w-4" />
+                                        {freeChapters.length} Free Chapters
+                                    </span>
+                                )}
+                            </div>
+
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-foreground leading-[1.1]">
+                                {course.title}
+                            </h1>
+                            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-3xl">
+                                {course.description}
+                            </p>
+                        </div>
+
+                        {/* Curriculum Section */}
+                        <div className="space-y-6">
+                            <div className="flex items-center justify-between pb-4 border-b border-border/40">
+                                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground flex items-center gap-3">
+                                    <BookOpen className="h-7 w-7 text-primary" />
+                                    Course Curriculum
+                                </h2>
+                                <span className="text-base text-muted-foreground font-medium">
+                                    {course.chapters.length} Lectures • ~{Math.round(totalReadTime / 60)}h
+                                </span>
+                            </div>
+
+                            <div className="space-y-8">
+                                {Object.entries(groupedChapters).map(([section, chapters]) => (
+                                    <div key={section} className="space-y-4">
+                                        <h3 className="text-lg md:text-xl font-extrabold text-foreground pl-4 border-l-4 border-primary">
+                                            {section}
+                                        </h3>
+
+                                        <div className="grid gap-4">
+                                            {chapters.map((chapter, index) => (
+                                                <Link
+                                                    key={chapter.id}
+                                                    href={`/learn/${course.slug}/${chapter.slug}`}
+                                                    className="group relative flex items-center gap-5 p-6 rounded-xl border-2 border-border/50 bg-card hover:bg-muted/30 hover:border-primary/40 hover:shadow-lg transition-all duration-200"
+                                                >
+                                                    {/* Lecture Number */}
+                                                    {completedChapters.has(chapter.id) ? (
+                                                        <div className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center bg-green-500 dark:bg-green-600 transition-all duration-200">
+                                                            <CheckCircle2 className="h-7 w-7 text-white fill-white" strokeWidth={2.5} />
+                                                        </div>
+                                                    ) : (
+                                                        <div className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center text-base font-extrabold bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-all duration-200">
+                                                            {(index + 1).toString().padStart(2, '0')}
+                                                        </div>
+                                                    )}
+
+                                                    {/* Content */}
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex items-center gap-3 mb-2">
+                                                            <span className="font-extrabold text-foreground text-lg md:text-xl group-hover:text-primary transition-colors line-clamp-1">
+                                                                {chapter.title}
+                                                            </span>
+                                                            {chapter.isPremium && (
+                                                                <Badge variant="secondary" className="text-xs bg-blue-600/10 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400 border border-blue-600/20 dark:border-blue-500/20 h-6 px-2.5 font-semibold">
+                                                                    PRO
+                                                                </Badge>
+                                                            )}
+                                                        </div>
+                                                        <div className="flex items-center gap-3 text-base text-muted-foreground font-medium">
+                                                            <span className="flex items-center gap-2">
+                                                                <Clock className="h-4 w-4" />
+                                                                {chapter.estimatedReadTime} min
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Action Icon */}
+                                                    <div className="flex-shrink-0 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                                                        {chapter.isPremium ? (
+                                                            <Lock className="h-6 w-6 text-muted-foreground" />
+                                                        ) : (
+                                                            <ArrowRight className="h-6 w-6 text-primary" />
+                                                        )}
+                                                    </div>
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Column: Sticky Sidebar Card - Spans 4 cols */}
+                    <div className="lg:col-span-4 lg:sticky lg:top-24">
+                        <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm shadow-lg overflow-hidden">
+                            <div className="p-6 space-y-6">
+
+                                {/* Course Icon & Title */}
+                                <div className="text-center space-y-4">
+                                    <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-2">
+                                        <CourseIcon name={course.icon} className="h-10 w-10 text-primary" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-bold text-foreground">Course Progress</h3>
+                                        <p className="text-sm text-muted-foreground mt-1">Keep up the momentum!</p>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <div className="flex items-center justify-between text-sm font-medium">
+                                            <span className="text-muted-foreground">{Math.round(progressPercent)}% Complete</span>
+                                            <span className="text-foreground font-bold">{completedCount}/{course.chapterCount}</span>
+                                        </div>
+                                        <Progress value={progressPercent} className="h-2.5 bg-muted/50" />
+                                    </div>
+                                </div>
+
+                                <div className="h-px w-full bg-border/50" />
+
+                                {/* Meta Grid */}
+                                <div className="grid grid-cols-2 gap-5">
+                                    <div className="space-y-2">
+                                        <span className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Content</span>
+                                        <div className="flex items-center gap-2 text-base font-bold text-foreground">
+                                            <BookOpen className="h-4 w-4 text-primary" />
+                                            <span>{course.chapterCount} Chapters</span>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <span className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Duration</span>
+                                        <div className="flex items-center gap-2 text-base font-bold text-foreground">
+                                            <Clock className="h-4 w-4 text-primary" />
+                                            <span>~{Math.round(totalReadTime / 60)}h</span>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <span className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Level</span>
+                                        <div className="flex items-center gap-2 text-base font-bold text-foreground">
+                                            <Sparkles className="h-4 w-4 text-primary" />
+                                            <span>Intermediate</span>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <span className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Access</span>
+                                        <div className="flex items-center gap-2 text-base font-bold text-foreground">
+                                            <Lock className="h-4 w-4 text-primary" />
+                                            <span>Lifetime</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* CTA */}
+                                <Link href={course.chapters.length > 0 ? `/learn/${course.slug}/${course.chapters[0].slug}` : '#'} className="block">
+                                    <Button className="w-full h-12 text-base font-bold shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all rounded-lg bg-primary hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98]">
+                                        Start Learning Now
+                                        <ArrowRight className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </Link>
+
+                                <div className="text-center">
+                                    <p className="text-xs text-muted-foreground">
+                                        30-day money-back guarantee
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <Footer />
+        </main>
+    );
+}

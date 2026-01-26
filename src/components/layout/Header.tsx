@@ -31,7 +31,7 @@ export function Header() {
     ];
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+        <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
             <div className="w-full max-w-[1400px] mx-auto flex h-16 items-center justify-between px-6 md:px-8">
 
                 {/* Left Section: Logo & Nav */}
@@ -39,11 +39,8 @@ export function Header() {
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
                         <div className="flex items-center gap-2">
-                            <div className="p-1.5 rounded-lg bg-primary/10 group-hover:bg-primary/15 transition-colors">
-                                <Sparkles className="h-5 w-5 text-primary" />
-                            </div>
-                            <span className="text-lg font-bold text-foreground tracking-tight">
-                                Systems<span className="text-primary">Mastery</span>
+                            <span className="text-lg font-bold text-foreground">
+                                Systems Mastery
                             </span>
                         </div>
                     </Link>
@@ -56,7 +53,7 @@ export function Header() {
                                     Courses <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-72 bg-popover/95 backdrop-blur-xl border-border/50 p-2 shadow-xl">
+                            <DropdownMenuContent className="w-72 bg-popover border-border p-2">
                                 {courseItems.map((item) => (
                                     <DropdownMenuItem key={item.title} asChild disabled={item.comingSoon}>
                                         <Link
@@ -83,18 +80,14 @@ export function Header() {
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground/60" />
                         <Input
-                            placeholder="Search courses..."
-                            className="w-56 h-9 pl-9 pr-16 bg-muted/50 border-border/40 focus:border-primary/50 text-sm placeholder:text-muted-foreground/50 transition-all focus:w-64"
+                            placeholder="Search..."
+                            className="w-48 h-8 pl-8 pr-3 bg-background border-border text-sm"
                         />
-                        <kbd className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:inline-flex h-5 select-none items-center gap-0.5 rounded border border-border/60 bg-background/80 px-1.5 font-mono text-[10px] font-medium text-muted-foreground/70">
-                            ⌘K
-                        </kbd>
                     </div>
 
                     <div className="flex items-center gap-2">
                         {/* Premium Button */}
-                        <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary/5 hover:border-primary/50 font-semibold text-sm h-9 shadow-sm transition-all">
-                            <Sparkles className="h-3.5 w-3.5 mr-1.5" />
+                        <Button variant="outline" className="border-border text-foreground hover:bg-muted text-sm h-8">
                             Premium
                         </Button>
 
@@ -118,7 +111,7 @@ export function Header() {
                             <div className="flex items-center gap-2">
                                 <ModeToggle />
                                 <Link href="/login">
-                                    <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-sm h-9 text-sm transition-all hover:shadow-md">
+                                    <Button className="bg-foreground text-background hover:bg-foreground/90 h-8 text-sm">
                                         Sign In
                                     </Button>
                                 </Link>

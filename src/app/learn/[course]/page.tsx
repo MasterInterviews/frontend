@@ -32,7 +32,7 @@ export default function CoursePage({ params }: CoursePageProps) {
                 }
             });
             setCompletedChapters(completed);
-            
+
             // Listen for completion updates
             const handleCompletion = (event: CustomEvent) => {
                 if (event.detail.courseId === course.id) {
@@ -46,17 +46,14 @@ export default function CoursePage({ params }: CoursePageProps) {
                     setCompletedChapters(updated);
                 }
             };
-            
+
             window.addEventListener('chapterCompleted', handleCompletion as EventListener);
             return () => window.removeEventListener('chapterCompleted', handleCompletion as EventListener);
         }
     }, [course]);
 
-    useEffect(() => {
-        if (course && course.chapters.length > 0) {
-            router.replace(`/learn/${course.slug}/${course.chapters[0].slug}`);
-        }
-    }, [course, router]);
+    // Removed auto-redirect to prevent intermediate screen
+    // Users can navigate to chapters manually or via the "Start Learning Now" button
 
     if (!course) {
         return null;
@@ -90,7 +87,7 @@ export default function CoursePage({ params }: CoursePageProps) {
                                     Learning Path
                                 </Badge>
                                 {freeChapters.length > 0 && (
-                                    <span className="text-sm font-medium text-green-600 dark:text-green-500 flex items-center gap-1.5">
+                                    <span className="text-sm font-medium text-primary flex items-center gap-1.5">
                                         <Sparkles className="h-4 w-4" />
                                         {freeChapters.length} Free Chapters
                                     </span>
@@ -133,7 +130,7 @@ export default function CoursePage({ params }: CoursePageProps) {
                                                 >
                                                     {/* Lecture Number */}
                                                     {completedChapters.has(chapter.id) ? (
-                                                        <div className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center bg-green-500 dark:bg-green-600 transition-all duration-200">
+                                                        <div className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center bg-primary transition-all duration-200">
                                                             <CheckCircle2 className="h-7 w-7 text-white fill-white" strokeWidth={2.5} />
                                                         </div>
                                                     ) : (
@@ -149,7 +146,7 @@ export default function CoursePage({ params }: CoursePageProps) {
                                                                 {chapter.title}
                                                             </span>
                                                             {chapter.isPremium && (
-                                                                <Badge variant="secondary" className="text-xs bg-blue-600/10 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400 border border-blue-600/20 dark:border-blue-500/20 h-6 px-2.5 font-semibold">
+                                                                <Badge variant="secondary" className="text-xs bg-primary/10 text-primary border border-primary/20 h-6 px-2.5 font-semibold">
                                                                     PRO
                                                                 </Badge>
                                                             )}

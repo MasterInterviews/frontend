@@ -47,8 +47,8 @@ export function StreakCalendar({ streakDays = [], currentStreak = 0 }: StreakCal
             <CardContent className="px-4 pb-4">
                 <div className="grid grid-cols-7 gap-y-3 gap-x-2">
                     {/* Weekday headers */}
-                    {weekDays.map((day) => (
-                        <div key={day} className="h-6 flex items-center justify-center text-[10px] font-medium text-muted-foreground/60">
+                    {weekDays.map((day, i) => (
+                        <div key={i} className="h-6 flex items-center justify-center text-[10px] font-medium text-muted-foreground/60">
                             {day}
                         </div>
                     ))}

@@ -123,7 +123,7 @@ export function CourseSidebar({ course, currentChapterSlug }: CourseSidebarProps
                     </div>
                 </div>
                 <div className="space-y-1.5">
-                    <Progress value={progressPercent} className="h-2 bg-muted/60" indicatorClassName="bg-green-600 dark:bg-green-500 transition-all duration-500" />
+                    <Progress value={progressPercent} className="h-2 bg-muted/60" indicatorClassName="bg-primary transition-all duration-500" />
                     <div className="flex justify-between text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
                         <span>Progress</span>
                         <span>{Math.round(progressPercent)}%</span>
@@ -192,11 +192,11 @@ export function CourseSidebar({ course, currentChapterSlug }: CourseSidebarProps
                                                     aria-label={isCompleted ? "Mark as incomplete" : "Mark as complete"}
                                                 >
                                                     {isCompleted ? (
-                                                        <div className="w-5 h-5 rounded-full bg-green-500 dark:bg-green-600 flex items-center justify-center shadow-sm">
-                                                            <CheckCircle2 className="h-3.5 w-3.5 text-white fill-white" strokeWidth={2.5} />
+                                                        <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center">
+                                                            <CheckCircle2 className="h-3 w-3 text-primary-foreground" strokeWidth={3} />
                                                         </div>
                                                     ) : chapter.isPremium ? (
-                                                        <Lock className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                                                        <Lock className="h-4 w-4 text-muted-foreground" />
                                                     ) : (
                                                         <div className={cn(
                                                             "w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors bg-background",
@@ -217,7 +217,7 @@ export function CourseSidebar({ course, currentChapterSlug }: CourseSidebarProps
                                                 {/* Premium Badge */}
                                                 {chapter.isPremium && !isCompleted && (
                                                     <div className="flex-shrink-0">
-                                                        <div className="h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400" title="Premium" />
+                                                        <div className="h-1.5 w-1.5 rounded-full bg-primary" title="Premium" />
                                                     </div>
                                                 )}
                                             </Link>

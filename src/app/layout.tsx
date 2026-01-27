@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "InterviewMaster - Ace Your Tech Interviews",
+  title: "InterviewNotes - Ace Your Tech Interviews",
   description: "The complete interview prep platform for SDE 3, Staff & Principal roles. Master System Design, ML System Design, LLD, and more.",
   keywords: ["System Design Interview", "ML System Design", "LLD", "Tech Interview Prep", "Staff Engineer", "FAANG Interview"],
 };

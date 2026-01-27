@@ -4,7 +4,7 @@ import { courses } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
-    title: "Interview Prep Paths - InterviewMaster",
+    title: "Interview Prep Paths - InterviewNotes",
     description: "Master System Design, ML System Design, LLD and more. Designed for Senior, Staff, and Principal engineering roles.",
 };
 

@@ -40,7 +40,7 @@ export function Header() {
                     <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
                         <div className="flex items-center gap-2">
                             <span className="text-lg font-bold text-foreground">
-                                Interview<span className="text-primary">Master</span>
+                                Interview<span className="text-primary">Notes</span>
                             </span>
                         </div>
                     </Link>

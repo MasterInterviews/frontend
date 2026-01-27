@@ -4,8 +4,8 @@ import { courses } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
-    title: "Senior & Staff Paths - AIMaster",
-    description: "Deep dive into architecture, leadership, and distributed systems for Senior and Staff engineering roles.",
+    title: "Interview Prep Paths - InterviewMaster",
+    description: "Master System Design, ML System Design, LLD and more. Designed for Senior, Staff, and Principal engineering roles.",
 };
 
 export default function LearnPage() {

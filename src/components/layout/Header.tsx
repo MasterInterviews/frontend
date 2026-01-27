@@ -22,12 +22,12 @@ export function Header() {
 
     // Placeholder data for dropdown - centralized source of truth ideally in data.ts
     const courseItems = [
+        { title: "System Design", href: "/learn/system-design-interviews", icon: "AppWindow", comingSoon: false },
         { title: "Low Level Design", href: "/learn/low-level-design", icon: "Code2", comingSoon: false },
-        { title: "System Design Fundamentals", href: "/learn/system-design-fundamentals", icon: "Globe", comingSoon: false },
-        { title: "System Design Interviews", href: "/learn/system-design-interviews", icon: "AppWindow", comingSoon: false },
-        { title: "ML System Design", href: "/learn/ml-system-design", icon: "Bot", comingSoon: false },
-        { title: "MLOps & LLMOps", href: "/learn/mlops-production", icon: "Cpu", comingSoon: false },
-        { title: "AI Native Design", href: "/learn/ai-native-design", icon: "BrainCircuit", comingSoon: false },
+        { title: "ML Applications Design", href: "/learn/ml-applications-design", icon: "Bot", comingSoon: false },
+        { title: "ML Platform Design", href: "/learn/ml-platform-design", icon: "Cpu", comingSoon: false },
+        { title: "Gen AI Native Design", href: "/learn/gen-ai-native-design", icon: "BrainCircuit", comingSoon: false },
+        { title: "Behavioral", href: "/learn/behavioral-interviews", icon: "Users", comingSoon: false },
     ];
 
     return (
@@ -40,7 +40,7 @@ export function Header() {
                     <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
                         <div className="flex items-center gap-2">
                             <span className="text-lg font-bold text-foreground">
-                                Systems Mastery
+                                Interview<span className="text-primary">Master</span>
                             </span>
                         </div>
                     </Link>
@@ -72,6 +72,16 @@ export function Header() {
                                 ))}
                             </DropdownMenuContent>
                         </DropdownMenu>
+                        <Link href="/pricing">
+                            <Button variant="ghost" className="text-foreground/70 hover:text-foreground hover:bg-muted/50 font-medium text-sm h-9 transition-all">
+                                Pricing
+                            </Button>
+                        </Link>
+                        <Link href="/faq">
+                            <Button variant="ghost" className="text-foreground/70 hover:text-foreground hover:bg-muted/50 font-medium text-sm h-9 transition-all">
+                                FAQ
+                            </Button>
+                        </Link>
                     </nav>
                 </div>
 
@@ -151,6 +161,16 @@ export function Header() {
                         ))}
 
                         <div className="pt-4 border-t border-border space-y-3 px-2">
+                            <Link href="/pricing" className="block">
+                                <Button variant="ghost" className="w-full justify-start text-foreground">
+                                    Pricing
+                                </Button>
+                            </Link>
+                            <Link href="/faq" className="block">
+                                <Button variant="ghost" className="w-full justify-start text-foreground">
+                                    FAQ
+                                </Button>
+                            </Link>
                             <Button variant="outline" className="w-full justify-start border-primary text-primary">
                                 <Sparkles className="h-4 w-4 mr-2" />
                                 Get Premium

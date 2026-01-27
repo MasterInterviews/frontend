@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AIMaster - Master ML System Design & GenAI Interviews",
-  description: "Comprehensive learning paths for ML System Design, GenAI System Design, and Distributed Systems interviews. Ace your next tech interview.",
-  keywords: ["ML System Design", "Machine Learning", "GenAI", "System Design Interview", "Distributed Systems"],
+  title: "InterviewMaster - Ace Your Tech Interviews",
+  description: "The complete interview prep platform for SDE 3, Staff & Principal roles. Master System Design, ML System Design, LLD, and more.",
+  keywords: ["System Design Interview", "ML System Design", "LLD", "Tech Interview Prep", "Staff Engineer", "FAANG Interview"],
 };
 
 export default function RootLayout({

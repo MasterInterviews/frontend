@@ -11,11 +11,11 @@ export function Footer() {
                         <Link href="/" className="flex items-center gap-2 mb-4">
                             <Sparkles className="h-6 w-6 text-primary" />
                             <span className="text-xl font-semibold text-foreground">
-                                Systems<span className="text-primary">Mastery</span>
+                                Interview<span className="text-primary">Master</span>
                             </span>
                         </Link>
                         <p className="text-sm text-muted-foreground">
-                            Master System Design interviews - from ML and AI to distributed systems and beyond.
+                            Ace your tech interviews - from System Design and ML to LLD and beyond.
                         </p>
                     </div>
 
@@ -88,7 +88,7 @@ export function Footer() {
 
                 <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-sm text-muted-foreground">
-                        © {new Date().getFullYear()} SystemsMastery. All rights reserved.
+                        © {new Date().getFullYear()} InterviewMaster. All rights reserved.
                     </p>
                     <div className="flex items-center gap-4">
                         <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">

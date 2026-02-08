@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Mail, Lock, User, ArrowRight } from "lucide-react";
+import { Mail, Lock, User, ArrowRight } from "lucide-react";
 
 export default function SignupPage() {
     const [name, setName] = useState("");
@@ -19,8 +19,8 @@ export default function SignupPage() {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
         setIsLoading(false);
-        // TODO: Implement actual auth with Supabase
-        alert("Signup functionality will be connected to Supabase in the future!");
+        // TODO: Implement actual auth
+        alert("Signup functionality coming soon!");
     };
 
     return (
@@ -29,24 +29,23 @@ export default function SignupPage() {
                 {/* Logo */}
                 <div className="text-center mb-8">
                     <Link href="/" className="inline-flex items-center gap-2">
-                        <Sparkles className="h-8 w-8 text-primary" />
-                        <span className="text-2xl font-bold text-white">
-                            AI<span className="text-primary">Master</span>
+                        <span className="text-2xl font-bold">
+                            <span className="text-[var(--primary)]">Interview</span><span className="text-[var(--gold)]">Notes</span>
                         </span>
                     </Link>
                 </div>
 
                 <Card className="bg-card border-border">
                     <CardHeader className="text-center">
-                        <CardTitle className="text-2xl text-white">Create Account</CardTitle>
+                        <CardTitle className="text-2xl text-foreground">Create Account</CardTitle>
                         <CardDescription>
-                            Start your journey to mastering AI interviews
+                            Start your journey to mastering tech interviews
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="space-y-2">
-                                <label htmlFor="name" className="text-sm font-medium text-white">
+                                <label htmlFor="name" className="text-sm font-medium text-foreground">
                                     Full Name
                                 </label>
                                 <div className="relative">
@@ -64,7 +63,7 @@ export default function SignupPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label htmlFor="email" className="text-sm font-medium text-white">
+                                <label htmlFor="email" className="text-sm font-medium text-foreground">
                                     Email
                                 </label>
                                 <div className="relative">
@@ -82,7 +81,7 @@ export default function SignupPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label htmlFor="password" className="text-sm font-medium text-white">
+                                <label htmlFor="password" className="text-sm font-medium text-foreground">
                                     Password
                                 </label>
                                 <div className="relative">
@@ -105,7 +104,7 @@ export default function SignupPage() {
 
                             <Button
                                 type="submit"
-                                className="w-full bg-primary text-black hover:bg-primary/90 font-semibold"
+                                className="w-full bg-[var(--gold)] text-[var(--gold-foreground)] hover:bg-[var(--gold-hover)] font-semibold"
                                 disabled={isLoading}
                             >
                                 {isLoading ? "Creating account..." : "Create Account"}
@@ -124,7 +123,7 @@ export default function SignupPage() {
                             </div>
 
                             <div className="mt-6 grid grid-cols-2 gap-4">
-                                <Button variant="outline" className="border-border hover:bg-neutral-800">
+                                <Button variant="outline" className="border-border hover:bg-muted/60">
                                     <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                                         <path
                                             fill="currentColor"
@@ -145,7 +144,7 @@ export default function SignupPage() {
                                     </svg>
                                     Google
                                 </Button>
-                                <Button variant="outline" className="border-border hover:bg-neutral-800">
+                                <Button variant="outline" className="border-border hover:bg-muted/60">
                                     <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             fillRule="evenodd"
@@ -167,9 +166,9 @@ export default function SignupPage() {
 
                         <p className="mt-4 text-center text-xs text-muted-foreground">
                             By creating an account, you agree to our{" "}
-                            <Link href="#" className="underline hover:text-primary">Terms of Service</Link>
+                            <span className="underline">Terms of Service</span>
                             {" "}and{" "}
-                            <Link href="#" className="underline hover:text-primary">Privacy Policy</Link>
+                            <span className="underline">Privacy Policy</span>
                         </p>
                     </CardContent>
                 </Card>

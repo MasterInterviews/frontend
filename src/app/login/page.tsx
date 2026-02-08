@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Mail, Lock, ArrowRight } from "lucide-react";
+import { Mail, Lock, ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -18,8 +18,8 @@ export default function LoginPage() {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
         setIsLoading(false);
-        // TODO: Implement actual auth with Supabase
-        alert("Login functionality will be connected to Supabase in the future!");
+        // TODO: Implement actual auth
+        alert("Login functionality coming soon!");
     };
 
     return (
@@ -28,16 +28,15 @@ export default function LoginPage() {
                 {/* Logo */}
                 <div className="text-center mb-8">
                     <Link href="/" className="inline-flex items-center gap-2">
-                        <Sparkles className="h-8 w-8 text-primary" />
-                        <span className="text-2xl font-bold text-white">
-                            AI<span className="text-primary">Master</span>
+                        <span className="text-2xl font-bold">
+                            <span className="text-[var(--primary)]">Interview</span><span className="text-[var(--gold)]">Notes</span>
                         </span>
                     </Link>
                 </div>
 
                 <Card className="bg-card border-border">
                     <CardHeader className="text-center">
-                        <CardTitle className="text-2xl text-white">Welcome Back</CardTitle>
+                        <CardTitle className="text-2xl text-foreground">Welcome Back</CardTitle>
                         <CardDescription>
                             Sign in to continue your learning journey
                         </CardDescription>
@@ -45,7 +44,7 @@ export default function LoginPage() {
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="space-y-2">
-                                <label htmlFor="email" className="text-sm font-medium text-white">
+                                <label htmlFor="email" className="text-sm font-medium text-foreground">
                                     Email
                                 </label>
                                 <div className="relative">
@@ -64,12 +63,12 @@ export default function LoginPage() {
 
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between">
-                                    <label htmlFor="password" className="text-sm font-medium text-white">
+                                    <label htmlFor="password" className="text-sm font-medium text-foreground">
                                         Password
                                     </label>
-                                    <Link href="#" className="text-sm text-primary hover:underline">
+                                    <span className="text-sm text-muted-foreground cursor-default">
                                         Forgot password?
-                                    </Link>
+                                    </span>
                                 </div>
                                 <div className="relative">
                                     <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -87,7 +86,7 @@ export default function LoginPage() {
 
                             <Button
                                 type="submit"
-                                className="w-full bg-primary text-black hover:bg-primary/90 font-semibold"
+                                className="w-full bg-[var(--gold)] text-[var(--gold-foreground)] hover:bg-[var(--gold-hover)] font-semibold"
                                 disabled={isLoading}
                             >
                                 {isLoading ? "Signing in..." : "Sign In"}
@@ -106,7 +105,7 @@ export default function LoginPage() {
                             </div>
 
                             <div className="mt-6 grid grid-cols-2 gap-4">
-                                <Button variant="outline" className="border-border hover:bg-neutral-800">
+                                <Button variant="outline" className="border-border hover:bg-muted/60">
                                     <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                                         <path
                                             fill="currentColor"
@@ -127,7 +126,7 @@ export default function LoginPage() {
                                     </svg>
                                     Google
                                 </Button>
-                                <Button variant="outline" className="border-border hover:bg-neutral-800">
+                                <Button variant="outline" className="border-border hover:bg-muted/60">
                                     <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             fillRule="evenodd"

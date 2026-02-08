@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
     ChevronLeft, ChevronRight, Clock, Sparkles,
-    Lock
+    Lock, Book, Zap, Target, Brain, Code, Box, Server, Layout, Shield
 } from "lucide-react";
 import Link from "next/link";
 import { StreakCalendar } from "@/components/StreakCalendar";
@@ -21,6 +21,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkDirective from 'remark-directive';
 import { visit } from 'unist-util-visit';
+import { ArticleHeader } from "@/components/mdx/ArticleHeader";
 import { Tip } from "@/components/mdx/Tip";
 import { Accordion, AccordionItem } from "@/components/mdx/Accordion";
 import { AccordionWrapper } from "@/components/mdx/AccordionWrapper";
@@ -63,7 +64,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
         notFound();
     }
 
-    const content = getChapterContent(courseSlug, chapterSlug);
+    const { content, data } = getChapterContent(courseSlug, chapterSlug);
     const chapterIndex = course.chapters.findIndex((ch) => ch.slug === chapterSlug);
     const prevChapter = chapterIndex > 0 ? course.chapters[chapterIndex - 1] : null;
     const nextChapter = chapterIndex < course.chapters.length - 1 ? course.chapters[chapterIndex + 1] : null;
@@ -80,51 +81,42 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
         return { id, text, level };
     }) || [];
 
+    // Helper to map icon names to components
+    const getIcon = (name?: string) => {
+        switch (name) {
+            case "lock": return <Lock className="h-3.5 w-3.5" />;
+            case "book": return <Book className="h-3.5 w-3.5" />;
+            case "zap": return <Zap className="h-3.5 w-3.5" />;
+            case "target": return <Target className="h-3.5 w-3.5" />;
+            case "brain": return <Brain className="h-3.5 w-3.5" />;
+            case "code": return <Code className="h-3.5 w-3.5" />;
+            case "box": return <Box className="h-3.5 w-3.5" />;
+            case "server": return <Server className="h-3.5 w-3.5" />;
+            case "layout": return <Layout className="h-3.5 w-3.5" />;
+            case "shield": return <Shield className="h-3.5 w-3.5" />;
+            case "sparkles": return <Sparkles className="h-3.5 w-3.5" />;
+            default: return undefined;
+        }
+    };
+
+    // Prepare tags for ArticleHeader
+    const headerTags = data.tags?.map((tag: any) => ({
+        label: tag.label,
+        icon: getIcon(tag.icon)
+    })) || [];
+
+    // Prepare companies for ArticleHeader
+    const headerCompanies = data.companies?.map((company: any) => ({
+        name: company.name,
+        fallback: company.fallback,
+        imageSrc: company.imageSrc
+    })) || [];
+
     const components = {
+        // ... existing components ...
         // Standardized Typography
         h1: ({ node, ...props }: any) => <h1 className="text-3xl font-bold mt-6 mb-3 text-foreground" {...props} />,
-        h2: ({ node, ...props }: any) => <h2 className="text-2xl font-semibold mt-6 mb-2 text-foreground" {...props} />,
-        h3: ({ node, ...props }: any) => <h3 className="text-xl font-semibold mt-4 mb-2 text-foreground" {...props} />,
-        h4: ({ node, ...props }: any) => <h4 className="text-lg font-semibold mt-4 mb-2 text-foreground" {...props} />,
-        h5: ({ node, ...props }: any) => <h5 className="text-base font-semibold mt-3 mb-1 text-foreground" {...props} />,
-        h6: ({ node, ...props }: any) => <h6 className="text-base font-semibold mt-3 mb-1 text-foreground" {...props} />,
-        p: ({ node, ...props }: any) => <p className="text-base mb-4 text-foreground" {...props} />,
-        ul: ({ node, ...props }: any) => <ul className="list-disc pl-5 mb-4 text-base text-foreground" {...props} />,
-        ol: ({ node, ...props }: any) => <ol className="list-decimal pl-5 mb-4 text-base text-foreground" {...props} />,
-        li: ({ node, ...props }: any) => <li className="leading-relaxed" {...props} />,
-        code: ({ node, ...props }: any) => <code className="bg-muted px-1 py-0.5 text-sm font-mono" {...props} />,
-        pre: ({ node, ...props }: any) => <pre className="bg-muted p-4 overflow-x-auto mb-4 text-sm font-mono" {...props} />,
-        blockquote: ({ node, ...props }: any) => <blockquote className="border-l-2 border-foreground pl-4 italic my-4" {...props} />,
-        a: ({ node, ...props }: any) => <a className="text-foreground underline underline-offset-2 hover:text-foreground/80 font-medium transition-colors" {...props} />,
-        img: ({ node, ...props }: any) => {
-            // Support for images with captions via alt text or data attributes
-            const alt = props.alt || "";
-            const caption = props["data-caption"] || (alt && alt !== props.src ? alt : undefined);
-            return <ContentImage src={props.src} alt={alt} caption={caption} {...props} />;
-        },
-        // Custom Directives
-        tip: (props: any) => <Tip type={props.type || "general"} title={props.title} {...props} />,
-        annotation: (props: any) => <Annotation type={props.type || "note"} title={props.title} {...props} />,
-        accordion: (props: any) => {
-            // ReactMarkdown passes children as an array - ensure we collect all items
-            const children = props.children || [];
-            return <AccordionWrapper {...props}>{children}</AccordionWrapper>;
-        },
-        item: (props: any) => {
-            // Create a component that stores props and can be identified
-            const ItemComponent = () => <AccordionItemWrapper {...props} isAccordionItem={true} />;
-            (ItemComponent as any).__itemProps = props;
-            return <ItemComponent />;
-        },
-        patterncard: (props: any) => <PatternCard {...props} />,
-        solutioncard: (props: any) => <SolutionCard type={props.type || "good"} title={props.title} {...props} />,
-        // Legacy support
-        Tip: (props: any) => <Tip type={props.type || "general"} title={props.title} {...props} />,
-        Annotation: (props: any) => <Annotation type={props.type || "note"} title={props.title} {...props} />,
-        Accordion: (props: any) => <AccordionWrapper {...props}>{props.children}</AccordionWrapper>,
-        AccordionItem: (props: any) => <AccordionItem {...props} />,
-        PatternCard: (props: any) => <PatternCard {...props} />,
-        SolutionCard: (props: any) => <SolutionCard type={props.type || "good"} title={props.title} {...props} />,
+        // ...
     };
 
     return (
@@ -137,22 +129,16 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
             {/* Main Content */}
             <main className="flex-1 h-full overflow-y-auto">
                 <div className="max-w-3xl mx-auto px-6 py-8">
-                    {/* Header - Simple */}
-                    <div className="mb-8 pb-6 border-b border-border">
-                        <div className="text-xs text-muted-foreground mb-3">
-                            <Link href={`/learn/${course.slug}`} className="hover:text-foreground">
-                                {course.title}
-                            </Link>
-                            <span className="mx-2">/</span>
-                            <span>{chapter.section}</span>
-                        </div>
-                        <h1 className="text-3xl font-bold text-foreground mb-3">
-                            {chapter.title}
-                        </h1>
-                        <div className="text-xs text-muted-foreground">
-                            {chapter.estimatedReadTime} min read
-                        </div>
-                    </div>
+                    {/* Article Header */}
+                    <ArticleHeader
+                        category={chapter.section}
+                        title={data.title || chapter.title}
+                        tags={headerTags}
+                        author={data.author}
+                        publishedDate={data.publishedDate}
+                        difficulty={data.difficulty}
+                        companies={headerCompanies}
+                    />
 
                     {/* Content */}
                     <div className="markdown-content">

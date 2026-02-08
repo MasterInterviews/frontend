@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
     DropdownMenu,
@@ -11,7 +10,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Search, Menu, X, ChevronDown, Sparkles } from "lucide-react";
+import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { CourseIcon } from "@/components/course-icon";
@@ -20,14 +19,13 @@ export function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isLoggedIn] = useState(false); // Will be connected to auth later
 
-    // Placeholder data for dropdown - centralized source of truth ideally in data.ts
     const courseItems = [
-        { title: "System Design", href: "/learn/system-design-interviews", icon: "AppWindow", comingSoon: false },
-        { title: "Low Level Design", href: "/learn/low-level-design", icon: "Code2", comingSoon: false },
-        { title: "ML Applications Design", href: "/learn/ml-applications-design", icon: "Bot", comingSoon: false },
-        { title: "ML Platform Design", href: "/learn/ml-platform-design", icon: "Cpu", comingSoon: false },
-        { title: "Gen AI Native Design", href: "/learn/gen-ai-native-design", icon: "BrainCircuit", comingSoon: false },
-        { title: "Behavioral", href: "/learn/behavioral-interviews", icon: "Users", comingSoon: false },
+        { title: "Gen AI Native Design", href: "/learn/gen-ai-native-design", icon: "BrainCircuit" },
+        { title: "System Design Fundamentals", href: "/learn/system-design-fundamentals", icon: "Globe" },
+        { title: "System Design", href: "/learn/system-design-interviews", icon: "AppWindow" },
+        { title: "ML Platform Design", href: "/learn/ml-platform-design", icon: "Cpu" },
+        { title: "Low Level Design", href: "/learn/low-level-design", icon: "Code2" },
+        { title: "Behavioral", href: "/learn/behavioral-interviews", icon: "Users" },
     ];
 
     return (
@@ -39,8 +37,8 @@ export function Header() {
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
                         <div className="flex items-center gap-2">
-                            <span className="text-lg font-bold text-foreground">
-                                Interview<span className="text-primary">Notes</span>
+                            <span className="text-lg font-bold">
+                                <span className="text-[var(--primary)]">Interview</span><span className="text-[var(--gold)]">Notes</span>
                             </span>
                         </div>
                     </Link>
@@ -55,29 +53,24 @@ export function Header() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="w-72 bg-popover border-border p-2">
                                 {courseItems.map((item) => (
-                                    <DropdownMenuItem key={item.title} asChild disabled={item.comingSoon}>
+                                    <DropdownMenuItem key={item.title} asChild>
                                         <Link
-                                            href={item.comingSoon ? "#" : item.href}
-                                            className={`flex items-center gap-3 cursor-pointer py-2 ${item.comingSoon ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                            href={item.href}
+                                            className="flex items-center gap-3 cursor-pointer py-2"
                                         >
                                             <CourseIcon name={item.icon} className="h-4 w-4 text-primary" />
-                                            <div className="flex flex-col">
-                                                <span className="font-medium">{item.title}</span>
-                                                {item.comingSoon && (
-                                                    <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Coming Soon</span>
-                                                )}
-                                            </div>
+                                            <span className="font-medium">{item.title}</span>
                                         </Link>
                                     </DropdownMenuItem>
                                 ))}
                             </DropdownMenuContent>
                         </DropdownMenu>
-                        <Link href="/pricing">
+                        <Link href="/#pricing">
                             <Button variant="ghost" className="text-foreground/70 hover:text-foreground hover:bg-muted/50 font-medium text-sm h-9 transition-all">
                                 Pricing
                             </Button>
                         </Link>
-                        <Link href="/faq">
+                        <Link href="/#faq">
                             <Button variant="ghost" className="text-foreground/70 hover:text-foreground hover:bg-muted/50 font-medium text-sm h-9 transition-all">
                                 FAQ
                             </Button>
@@ -85,21 +78,15 @@ export function Header() {
                     </nav>
                 </div>
 
-                {/* Right Section: Search & Actions */}
+                {/* Right Section: Actions */}
                 <div className="hidden md:flex items-center gap-3 flex-shrink-0">
-                    <div className="relative">
-                        <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground/60" />
-                        <Input
-                            placeholder="Search..."
-                            className="w-48 h-8 pl-8 pr-3 bg-background border-border text-sm"
-                        />
-                    </div>
-
                     <div className="flex items-center gap-2">
                         {/* Premium Button */}
-                        <Button variant="outline" className="border-border text-foreground hover:bg-muted text-sm h-8">
-                            Premium
-                        </Button>
+                        <Link href="/#pricing">
+                            <Button variant="outline" className="border-[var(--gold)]/50 text-[var(--gold-hover)] hover:bg-[var(--gold)]/10 text-sm h-8 font-semibold">
+                                Premium
+                            </Button>
+                        </Link>
 
                         {isLoggedIn ? (
                             <DropdownMenu>
@@ -149,33 +136,33 @@ export function Header() {
                         {courseItems.map((item) => (
                             <Link
                                 key={item.title}
-                                href={item.comingSoon ? "#" : item.href}
-                                className={`flex items-center gap-3 p-2 rounded-md hover:bg-muted ${item.comingSoon ? 'opacity-60 pointer-events-none' : ''}`}
+                                href={item.href}
+                                className="flex items-center gap-3 p-2 rounded-md hover:bg-muted"
+                                onClick={() => setMobileMenuOpen(false)}
                             >
                                 <CourseIcon name={item.icon} className="h-5 w-5 text-primary" />
-                                <div>
-                                    <div className="font-medium text-foreground">{item.title}</div>
-                                    {item.comingSoon && <div className="text-xs text-muted-foreground">Coming Soon</div>}
-                                </div>
+                                <div className="font-medium text-foreground">{item.title}</div>
                             </Link>
                         ))}
 
                         <div className="pt-4 border-t border-border space-y-3 px-2">
-                            <Link href="/pricing" className="block">
+                            <Link href="/#pricing" className="block" onClick={() => setMobileMenuOpen(false)}>
                                 <Button variant="ghost" className="w-full justify-start text-foreground">
                                     Pricing
                                 </Button>
                             </Link>
-                            <Link href="/faq" className="block">
+                            <Link href="/#faq" className="block" onClick={() => setMobileMenuOpen(false)}>
                                 <Button variant="ghost" className="w-full justify-start text-foreground">
                                     FAQ
                                 </Button>
                             </Link>
-                            <Button variant="outline" className="w-full justify-start border-primary text-primary">
-                                <Sparkles className="h-4 w-4 mr-2" />
-                                Get Premium
-                            </Button>
-                            <Link href="/login" className="block">
+                            <Link href="/#pricing" onClick={() => setMobileMenuOpen(false)}>
+                                <Button variant="outline" className="w-full justify-start border-primary text-primary">
+                                    <Sparkles className="h-4 w-4 mr-2" />
+                                    Get Premium
+                                </Button>
+                            </Link>
+                            <Link href="/login" className="block" onClick={() => setMobileMenuOpen(false)}>
                                 <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm">
                                     Login
                                 </Button>

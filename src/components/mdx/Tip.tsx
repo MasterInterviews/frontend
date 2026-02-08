@@ -3,7 +3,7 @@
 import { Lightbulb, Briefcase, AlertCircle, Info, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export type TipType = "interview" | "general" | "warning" | "info";
+export type TipType = "interview" | "general" | "warning" | "info" | "success" | "danger";
 
 interface TipProps {
     children?: React.ReactNode;
@@ -41,6 +41,20 @@ const tipConfig: Record<TipType, { icon: LucideIcon; defaultTitle: string; borde
         borderColor: "border-l-2 border-foreground",
         bgColor: "bg-muted",
         iconColor: "text-foreground",
+    },
+    success: {
+        icon: Lightbulb,
+        defaultTitle: "Tip",
+        borderColor: "border-l-4 border-emerald-500",
+        bgColor: "bg-emerald-50 dark:bg-emerald-950/30",
+        iconColor: "text-emerald-600 dark:text-emerald-400",
+    },
+    danger: {
+        icon: AlertCircle,
+        defaultTitle: "Warning",
+        borderColor: "border-l-4 border-red-500",
+        bgColor: "bg-red-50 dark:bg-red-950/30",
+        iconColor: "text-red-600 dark:text-red-400",
     },
 };
 

@@ -16,31 +16,31 @@ interface SolutionCardProps {
 
 const styles = {
     good: {
-        leftBorder: "border-l-2 border-foreground",
-        bg: "bg-muted",
-        headerBg: "bg-muted",
+        leftBorder: "border-l-2 border-yellow-500",
+        bg: "bg-yellow-50 dark:bg-yellow-950/20",
+        headerBg: "bg-yellow-100/50 dark:bg-yellow-950/40",
         icon: CheckCircle2,
-        iconColor: "text-foreground",
+        iconColor: "text-yellow-600 dark:text-yellow-500",
         textColor: "text-foreground",
-        defaultTitle: "Good"
+        defaultTitle: "Good Solution"
     },
     bad: {
-        leftBorder: "border-l-2 border-foreground",
-        bg: "bg-muted",
-        headerBg: "bg-muted",
+        leftBorder: "border-l-2 border-red-500",
+        bg: "bg-red-50 dark:bg-red-950/20",
+        headerBg: "bg-red-100/50 dark:bg-red-950/40",
         icon: AlertCircle,
-        iconColor: "text-foreground",
+        iconColor: "text-red-600 dark:text-red-500",
         textColor: "text-foreground",
-        defaultTitle: "Bad"
+        defaultTitle: "Bad Solution"
     },
     best: {
-        leftBorder: "border-l-2 border-foreground",
-        bg: "bg-muted",
-        headerBg: "bg-muted",
+        leftBorder: "border-l-2 border-emerald-500",
+        bg: "bg-emerald-50 dark:bg-emerald-950/20",
+        headerBg: "bg-emerald-100/50 dark:bg-emerald-950/40",
         icon: Sparkles,
-        iconColor: "text-foreground",
+        iconColor: "text-emerald-600 dark:text-emerald-500",
         textColor: "text-foreground",
-        defaultTitle: "Best"
+        defaultTitle: "Great Solution"
     }
 } as const;
 

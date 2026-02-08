@@ -1,4 +1,4 @@
-import { BrainCircuit, Bot, Globe, AppWindow, Code2, Sparkles, Layout, Database, FileCode } from "lucide-react";
+import { BrainCircuit, Bot, Globe, AppWindow, Code2, Sparkles, Layout, Database, FileCode, Cpu, Users, LayoutTemplate, ShieldCheck } from "lucide-react";
 
 export const iconMap = {
     BrainCircuit,
@@ -9,7 +9,11 @@ export const iconMap = {
     Sparkles,
     Layout,
     Database,
-    FileCode
+    FileCode,
+    Cpu,
+    Users,
+    LayoutTemplate,
+    ShieldCheck,
 };
 
 export type IconName = keyof typeof iconMap;

@@ -14,7 +14,7 @@ export function CourseCard({ course }: CourseCardProps) {
 
     return (
         <Link href={`/learn/${course.slug}`} className="group">
-            <Card className="bg-card border-2 border-border/60 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 h-full flex flex-col overflow-hidden hover:scale-[1.02]">
+            <Card className="bg-card border-2 border-border/60 hover:border-[var(--gold)]/50 transition-all duration-300 hover:shadow-xl hover:shadow-[var(--gold)]/10 h-full flex flex-col overflow-hidden hover:scale-[1.02]">
                 <CardHeader className="pb-5 space-y-5 p-6">
                     <div className="flex items-start justify-between">
                         <div className="p-3 rounded-xl bg-primary/10 group-hover:bg-primary/15 transition-colors">
@@ -44,7 +44,7 @@ export function CourseCard({ course }: CourseCardProps) {
                                 <span>~{Math.round(totalReadTime / 60)}h</span>
                             </div>
                         </div>
-                        <div className="flex items-center gap-2 text-sm font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex items-center gap-2 text-sm font-bold text-[var(--gold)] opacity-0 group-hover:opacity-100 transition-opacity">
                             <span>Explore</span>
                             <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                         </div>

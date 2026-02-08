@@ -94,10 +94,10 @@ export default function CoursePage({ params }: CoursePageProps) {
                                 )}
                             </div>
 
-                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-foreground leading-[1.1]">
+                            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground leading-[1.2]">
                                 {course.title}
                             </h1>
-                            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-3xl">
+                            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
                                 {course.description}
                             </p>
                         </div>
@@ -105,8 +105,8 @@ export default function CoursePage({ params }: CoursePageProps) {
                         {/* Curriculum Section */}
                         <div className="space-y-6">
                             <div className="flex items-center justify-between pb-4 border-b border-border/40">
-                                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground flex items-center gap-3">
-                                    <BookOpen className="h-7 w-7 text-primary" />
+                                <h2 className="text-xl md:text-2xl font-bold text-foreground flex items-center gap-3">
+                                    <BookOpen className="h-5 w-5 text-primary" />
                                     Course Curriculum
                                 </h2>
                                 <span className="text-base text-muted-foreground font-medium">
@@ -117,7 +117,7 @@ export default function CoursePage({ params }: CoursePageProps) {
                             <div className="space-y-8">
                                 {Object.entries(groupedChapters).map(([section, chapters]) => (
                                     <div key={section} className="space-y-4">
-                                        <h3 className="text-lg md:text-xl font-extrabold text-foreground pl-4 border-l-4 border-primary">
+                                        <h3 className="text-base md:text-lg font-semibold text-foreground pl-4 border-l-4 border-primary">
                                             {section}
                                         </h3>
 
@@ -126,12 +126,12 @@ export default function CoursePage({ params }: CoursePageProps) {
                                                 <Link
                                                     key={chapter.id}
                                                     href={`/learn/${course.slug}/${chapter.slug}`}
-                                                    className="group relative flex items-center gap-5 p-6 rounded-xl border-2 border-border/50 bg-card hover:bg-muted/30 hover:border-primary/40 hover:shadow-lg transition-all duration-200"
+                                                    className="group relative flex items-center gap-5 p-5 rounded-xl border border-border bg-card hover:bg-accent/5 hover:border-sidebar-primary/50 hover:shadow-md transition-all duration-200"
                                                 >
                                                     {/* Lecture Number */}
                                                     {completedChapters.has(chapter.id) ? (
                                                         <div className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center bg-primary transition-all duration-200">
-                                                            <CheckCircle2 className="h-7 w-7 text-white fill-white" strokeWidth={2.5} />
+                                                            <CheckCircle2 className="h-7 w-7 text-primary-foreground" strokeWidth={2.5} />
                                                         </div>
                                                     ) : (
                                                         <div className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center text-base font-extrabold bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-all duration-200">
@@ -142,7 +142,7 @@ export default function CoursePage({ params }: CoursePageProps) {
                                                     {/* Content */}
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center gap-3 mb-2">
-                                                            <span className="font-extrabold text-foreground text-lg md:text-xl group-hover:text-primary transition-colors line-clamp-1">
+                                                            <span className="font-semibold text-foreground text-base md:text-lg group-hover:text-primary transition-colors line-clamp-1">
                                                                 {chapter.title}
                                                             </span>
                                                             {chapter.isPremium && (
@@ -196,7 +196,7 @@ export default function CoursePage({ params }: CoursePageProps) {
                                             <span className="text-muted-foreground">{Math.round(progressPercent)}% Complete</span>
                                             <span className="text-foreground font-bold">{completedCount}/{course.chapterCount}</span>
                                         </div>
-                                        <Progress value={progressPercent} className="h-2.5 bg-muted/50" />
+                                        <Progress value={progressPercent} className="h-2.5 bg-muted/50" indicatorClassName="bg-[var(--gold)]" />
                                     </div>
                                 </div>
 
@@ -207,28 +207,28 @@ export default function CoursePage({ params }: CoursePageProps) {
                                     <div className="space-y-2">
                                         <span className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Content</span>
                                         <div className="flex items-center gap-2 text-base font-bold text-foreground">
-                                            <BookOpen className="h-4 w-4 text-primary" />
+                                            <BookOpen className="h-4 w-4 text-[var(--gold)]" />
                                             <span>{course.chapterCount} Chapters</span>
                                         </div>
                                     </div>
                                     <div className="space-y-2">
                                         <span className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Duration</span>
                                         <div className="flex items-center gap-2 text-base font-bold text-foreground">
-                                            <Clock className="h-4 w-4 text-primary" />
+                                            <Clock className="h-4 w-4 text-[var(--gold)]" />
                                             <span>~{Math.round(totalReadTime / 60)}h</span>
                                         </div>
                                     </div>
                                     <div className="space-y-2">
                                         <span className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Level</span>
                                         <div className="flex items-center gap-2 text-base font-bold text-foreground">
-                                            <Sparkles className="h-4 w-4 text-primary" />
+                                            <Sparkles className="h-4 w-4 text-[var(--gold)]" />
                                             <span>Intermediate</span>
                                         </div>
                                     </div>
                                     <div className="space-y-2">
                                         <span className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Access</span>
                                         <div className="flex items-center gap-2 text-base font-bold text-foreground">
-                                            <Lock className="h-4 w-4 text-primary" />
+                                            <Lock className="h-4 w-4 text-[var(--gold)]" />
                                             <span>Lifetime</span>
                                         </div>
                                     </div>
@@ -236,7 +236,7 @@ export default function CoursePage({ params }: CoursePageProps) {
 
                                 {/* CTA */}
                                 <Link href={course.chapters.length > 0 ? `/learn/${course.slug}/${course.chapters[0].slug}` : '#'} className="block">
-                                    <Button className="w-full h-12 text-base font-bold shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all rounded-lg bg-primary hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98]">
+                                    <Button className="w-full h-12 text-base font-bold shadow-lg shadow-[var(--gold)]/20 hover:shadow-[var(--gold)]/30 transition-all rounded-lg bg-[var(--gold)] hover:bg-[var(--gold-hover)] text-[var(--gold-foreground)] hover:scale-[1.02] active:scale-[0.98]">
                                         Start Learning Now
                                         <ArrowRight className="ml-2 h-5 w-5" />
                                     </Button>

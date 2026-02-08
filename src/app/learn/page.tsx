@@ -18,7 +18,7 @@ export default function LearnPage() {
                         <Badge variant="outline" className="mb-4 border-primary/30 text-primary">
                             All Courses
                         </Badge>
-                        <h1 className="text-4xl md:text-5xl font-semibold text-foreground mb-4">
+                        <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
                             Interview Paths
                         </h1>
                         <p className="text-lg text-foreground/80 max-w-2xl mx-auto">

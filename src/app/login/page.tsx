@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/client";
@@ -20,8 +19,12 @@ function GoogleIcon() {
 
 export default function LoginPage() {
     const [isLoading, setIsLoading] = useState(false);
-    const searchParams = useSearchParams();
-    const error = searchParams.get("error");
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        setError(params.get("error"));
+    }, []);
 
     const handleGoogleSignIn = async () => {
         setIsLoading(true);

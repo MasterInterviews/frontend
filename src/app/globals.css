@@ -49,6 +49,8 @@
 /* vLLM-Inspired Theme - Blue, Gold & Soft White */
 :root {
   --radius: 0.5rem;
+  --font-geist-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   /* Light Theme - Soft off-white with blue & gold accents */
   --background: #f8fafc;

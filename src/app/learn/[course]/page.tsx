@@ -102,6 +102,27 @@ export default function CoursePage({ params }: CoursePageProps) {
                             </p>
                         </div>
 
+                        {/* Story Bank CTA — behavioral course only */}
+                        {course.slug === "behavioral-interviews" && (
+                            <Link
+                                href={`/learn/${course.slug}/story-bank`}
+                                className="group flex items-center gap-5 p-5 rounded-2xl border border-[var(--gold)]/30 bg-[var(--gold)]/5 hover:bg-[var(--gold)]/10 hover:border-[var(--gold)]/50 hover:shadow-lg hover:shadow-[var(--gold)]/5 transition-all duration-200"
+                            >
+                                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-[var(--gold)]/15 flex items-center justify-center">
+                                    <Sparkles className="h-6 w-6 text-[var(--gold)]" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <span className="font-bold text-foreground text-base md:text-lg group-hover:text-[var(--gold)] transition-colors">
+                                        Build Your Story Bank
+                                    </span>
+                                    <p className="text-sm text-muted-foreground mt-0.5">
+                                        Add your career examples in SBI format before starting the course
+                                    </p>
+                                </div>
+                                <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-[var(--gold)] group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                            </Link>
+                        )}
+
                         {/* Curriculum Section */}
                         <div className="space-y-6">
                             <div className="flex items-center justify-between pb-4 border-b border-border/40">

@@ -12,12 +12,33 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { CourseIcon } from "@/components/course-icon";
+import { useAuth } from "@/hooks/use-auth";
+import { createClient } from "@/lib/supabase/client";
 
 export function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [isLoggedIn] = useState(false); // Will be connected to auth later
+    const { user, loading } = useAuth();
+    const router = useRouter();
+
+    const handleSignOut = async () => {
+        const supabase = createClient();
+        await supabase.auth.signOut();
+        router.push("/");
+        router.refresh();
+    };
+
+    // Derive initials from name or email
+    const initials = user
+        ? (user.user_metadata?.full_name as string | undefined)
+            ?.split(" ")
+            .map((n: string) => n[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase() ?? user.email?.[0].toUpperCase() ?? "?"
+        : "?";
 
     const courseItems = [
         { title: "Gen AI Native Design", href: "/learn/gen-ai-native-design", icon: "BrainCircuit" },
@@ -88,20 +109,28 @@ export function Header() {
                             </Button>
                         </Link>
 
-                        {isLoggedIn ? (
+                        {!loading && user ? (
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" className="relative h-9 w-9 rounded-full">
                                         <Avatar className="h-9 w-9 border border-border">
-                                            <AvatarFallback className="bg-primary/10 text-primary font-semibold">HJ</AvatarFallback>
+                                            <AvatarFallback className="bg-primary/10 text-primary font-semibold text-xs">
+                                                {initials}
+                                            </AvatarFallback>
                                         </Avatar>
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent className="w-56 bg-popover border-border" align="end">
-                                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                                    <div className="px-2 py-1.5 text-xs text-muted-foreground truncate">
+                                        {user.email}
+                                    </div>
                                     <DropdownMenuSeparator className="bg-border" />
-                                    <DropdownMenuItem className="text-red-500 focus:text-red-500">Log out</DropdownMenuItem>
+                                    <DropdownMenuItem
+                                        className="text-red-500 focus:text-red-500 cursor-pointer"
+                                        onClick={handleSignOut}
+                                    >
+                                        Log out
+                                    </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         ) : (

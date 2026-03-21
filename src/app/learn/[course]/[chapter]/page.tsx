@@ -140,6 +140,11 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
                         companies={headerCompanies}
                     />
 
+                    {/* Chapter interactions (star, mark complete, notes) */}
+                    <div className="mt-6 mb-4">
+                        <ChapterInteractions courseId={course.id} chapterId={chapter.id} />
+                    </div>
+
                     {/* Content */}
                     <div className="markdown-content">
                         {content.includes("Coming Soon") || content.trim() === "" ? (

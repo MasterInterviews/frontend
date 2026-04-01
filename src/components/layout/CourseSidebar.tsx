@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import { Course, getGroupedChapters, Chapter } from "@/lib/data";
 import { Search, Lock, CheckCircle2, ChevronDown, ChevronRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CourseIcon } from "@/components/course-icon";
 
 interface CourseSidebarProps {
@@ -30,6 +30,7 @@ export function CourseSidebar({ course, currentChapterSlug }: CourseSidebarProps
         return initial;
     });
     const [completedChapters, setCompletedChapters] = useState<Set<string>>(new Set());
+    const activeChapterRef = useRef<HTMLAnchorElement>(null);
 
     // Load completed chapters from localStorage
     useEffect(() => {
@@ -56,6 +57,11 @@ export function CourseSidebar({ course, currentChapterSlug }: CourseSidebarProps
         window.addEventListener('chapterCompleted', handleCompletion as EventListener);
         return () => window.removeEventListener('chapterCompleted', handleCompletion as EventListener);
     }, [course]);
+
+    // Scroll active chapter into view without resetting sidebar scroll position
+    useEffect(() => {
+        activeChapterRef.current?.scrollIntoView({ block: "nearest", behavior: "instant" });
+    }, [currentChapterSlug]);
 
     // Calculate progress from completed chapters
     const completedCount = completedChapters.size;
@@ -123,7 +129,7 @@ export function CourseSidebar({ course, currentChapterSlug }: CourseSidebarProps
                     </div>
                 </div>
                 <div className="space-y-1.5">
-                    <Progress value={progressPercent} className="h-2 bg-muted/60" indicatorClassName="bg-primary transition-all duration-500" />
+                    <Progress value={progressPercent} className="h-2 bg-muted/60" indicatorClassName="bg-gold transition-all duration-500" />
                     <div className="flex justify-between text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
                         <span>Progress</span>
                         <span>{Math.round(progressPercent)}%</span>
@@ -177,6 +183,7 @@ export function CourseSidebar({ course, currentChapterSlug }: CourseSidebarProps
                                         return (
                                             <Link
                                                 key={chapter.id}
+                                                ref={isActive ? activeChapterRef : undefined}
                                                 href={`/learn/${course.slug}/${chapter.slug}`}
                                                 className={cn(
                                                     "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors group relative -ml-[2px]",
@@ -204,7 +211,6 @@ export function CourseSidebar({ course, currentChapterSlug }: CourseSidebarProps
                                                                 ? "border-primary"
                                                                 : "border-muted-foreground/40 group-hover:border-muted-foreground/60 hover:border-primary"
                                                         )}>
-                                                            {/* Empty circle when not completed, checkmark on hover could be a nice touch but keep simple for now */}
                                                         </div>
                                                     )}
                                                 </button>

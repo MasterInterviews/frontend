@@ -1,6 +1,6 @@
 ---
-title: Scalable ML Feature Store
-description: Scalable ML Feature Store - Part of ML Platforms and OPs
+title: TikTok Video Feed Ranking
+description: TikTok Video Feed Ranking - Part of Recommendation Systems
 difficulty: medium
 tags: []
 companies: []
@@ -8,7 +8,7 @@ author: InterviewNotes
 publishedDate: '2026-01-31'
 ---
 
-# Scalable ML Feature Store
+# TikTok Video Feed Ranking
 
 :::tip{type="info"}
 This content is currently being drafted. Check back soon!

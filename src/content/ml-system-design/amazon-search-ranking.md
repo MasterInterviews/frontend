@@ -1,6 +1,6 @@
 ---
-title: Scalable ML Observability
-description: Scalable ML Observability - Part of ML Platforms and OPs
+title: Amazon Search Results Ranking
+description: Amazon Search Results Ranking - Part of Search & Retrieval
 difficulty: medium
 tags: []
 companies: []
@@ -8,7 +8,7 @@ author: InterviewNotes
 publishedDate: '2026-01-31'
 ---
 
-# Scalable ML Observability
+# Amazon Search Results Ranking
 
 :::tip{type="info"}
 This content is currently being drafted. Check back soon!

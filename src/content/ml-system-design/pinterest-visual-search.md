@@ -1,14 +1,16 @@
 ---
-title: Distributed ML Training Platform
-description: Distributed ML Training Platform - Part of ML Platforms and OPs
-difficulty: hard
-tags: []
+title: Pinterest Visual Search
+description: Pinterest Visual Search - Part of Search & Retrieval
+difficulty: medium
+tags:
+  - label: API Design
+    icon: code
 companies: []
 author: InterviewNotes
 publishedDate: '2026-01-31'
 ---
 
-# Distributed ML Training Platform
+# Pinterest Visual Search
 
 :::tip{type="info"}
 This content is currently being drafted. Check back soon!

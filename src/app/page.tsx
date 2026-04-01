@@ -10,16 +10,16 @@ import { useState, useEffect } from "react";
 
 const topics = [
     "ML Platform Design",
-    "System Design",
-    "GenAI Design",
-    "Low Level Design",
+    "LLM Platform Design",
+    "GenAI Native Design",
+    "ML System Design",
 ];
 
 const features = [
     "GenAI & Agentic Patterns",
     "ML Platform & MLOps",
-    "System Design & LLD",
-    "Behavioral & Leadership",
+    "LLM Platform Design",
+    "ML System Design",
 ];
 
 const trackConfigs = [
@@ -29,13 +29,13 @@ const trackConfigs = [
         gridClass: "lg:col-span-7 md:col-span-2",
     },
     {
-        courseId: "system-design-fundamentals",
-        tagline: "Scalability, CAP theorem & trade-offs",
+        courseId: "ml-system-design",
+        tagline: "Recommendations, search, ranking & more",
         gridClass: "lg:col-span-5",
     },
     {
-        courseId: "system-design-interviews",
-        tagline: "Real-world system design problems",
+        courseId: "llm-platform",
+        tagline: "Inference serving, fine-tuning & guardrails",
         gridClass: "lg:col-span-5",
     },
     {
@@ -44,21 +44,16 @@ const trackConfigs = [
         gridClass: "lg:col-span-7",
     },
     {
-        courseId: "lld",
-        tagline: "OOP, SOLID, patterns & problems",
-        gridClass: "lg:col-span-6",
-    },
-    {
-        courseId: "behavioral",
-        tagline: "STAR method, leadership & stories",
-        gridClass: "lg:col-span-6",
+        courseId: "gen-ai-foundations",
+        tagline: "Transformers, attention, tokenization & more",
+        gridClass: "lg:col-span-12 md:col-span-2",
     },
 ];
 
 const faqs = [
     {
         q: "What interview types does InterviewNotes cover?",
-        a: "We cover System Design (fundamentals + advanced), Low Level Design, ML Platform Design, Gen AI Native Design, and Behavioral interviews — everything you need for SDE-2 through Staff+ roles.",
+        a: "We cover ML System Design, ML Platform Design, LLM Platform Design, Gen AI Foundations, and Gen AI Native Design — everything you need for MLE, Senior MLE, and Staff AI/ML roles.",
     },
     {
         q: "What does Premium include?",
@@ -97,7 +92,7 @@ const testimonials = [
         name: "Ananya R.",
         role: "Staff Engineer",
         company: "Amazon",
-        quote: "Behavioral prep here is underrated. The STAR method breakdown helped me articulate impact clearly. Got Staff offer.",
+        quote: "LLM Platform Design track is exactly what I needed for my Anthropic loop. Inference serving, fine-tuning, guardrails — all in one place.",
         initials: "AR",
     },
     {
@@ -111,14 +106,14 @@ const testimonials = [
         name: "Sarah K.",
         role: "Senior SDE",
         company: "Microsoft",
-        quote: "LLD track finally made SOLID principles click. The real-world design problems are exactly what interviewers ask.",
+        quote: "ML System Design track nailed it — recommendation systems, search ranking, fraud detection. Exactly what came up in my interview.",
         initials: "SK",
     },
     {
         name: "Ravi M.",
         role: "ML Engineer",
         company: "Apple",
-        quote: "Went from struggling with system design to getting competing offers. The fundamentals track builds intuition, not just memorization.",
+        quote: "Gen AI Foundations track gave me the theory I was missing. Went into my OpenAI interview confident on transformers and attention. Got the offer.",
         initials: "RM",
     },
     {
@@ -199,8 +194,8 @@ export default function HomePage() {
 
                         {/* Hero Subtitle */}
                         <p className="text-base md:text-lg text-muted-foreground/90 max-w-2xl mx-auto mb-8 leading-relaxed font-medium animate-in fade-in slide-in-from-bottom-5 duration-700 delay-150">
-                            One platform for <span className="text-foreground font-semibold">System Design, LLD, ML & GenAI</span> interviews.
-                            Everything you need to land your dream offer.
+                            One platform for <span className="text-foreground font-semibold">ML System Design, LLM Platforms & GenAI</span> interviews.
+                            Everything you need to land your dream ML/AI offer.
                         </p>
 
                         {/* Feature Pills */}

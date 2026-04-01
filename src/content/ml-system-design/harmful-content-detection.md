@@ -1,6 +1,6 @@
 ---
-title: CI-CD for ML Models
-description: CI-CD for ML Models - Part of ML Platforms and OPs
+title: Harmful Content Detection
+description: Harmful Content Detection - Part of Prediction & Classification
 difficulty: medium
 tags: []
 companies: []
@@ -8,7 +8,7 @@ author: InterviewNotes
 publishedDate: '2026-01-31'
 ---
 
-# CI-CD for ML Models
+# Harmful Content Detection
 
 :::tip{type="info"}
 This content is currently being drafted. Check back soon!

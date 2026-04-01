@@ -22,14 +22,14 @@ export default function LearnPage() {
                             Interview Paths
                         </h1>
                         <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-                            Explore focused tracks for Low Level Design, System Design, ML System Design and more.
+                            Explore focused tracks for ML System Design, LLM Platform Design, Gen AI Native Design and more.
                             Each path is designed to take you from fundamentals to confident whiteboard delivery.
                         </p>
                     </div>
 
                     {/* Course Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                        {courses.map((course) => (
+                        {courses.filter((c) => !c.disabled).map((course) => (
                             <CourseCard key={course.id} course={course} />
                         ))}
                     </div>

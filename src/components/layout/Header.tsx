@@ -41,12 +41,11 @@ export function Header() {
         : "?";
 
     const courseItems = [
-        { title: "Gen AI Native Design", href: "/learn/gen-ai-native-design", icon: "BrainCircuit" },
-        { title: "System Design Fundamentals", href: "/learn/system-design-fundamentals", icon: "Globe" },
-        { title: "System Design", href: "/learn/system-design-interviews", icon: "AppWindow" },
+        { title: "ML System Design", href: "/learn/ml-system-design", icon: "BarChart2" },
         { title: "ML Platform Design", href: "/learn/ml-platform-design", icon: "Cpu" },
-        { title: "Low Level Design", href: "/learn/low-level-design", icon: "Code2" },
-        { title: "Behavioral", href: "/learn/behavioral-interviews", icon: "Users" },
+        { title: "LLM Platform Design", href: "/learn/llm-platform-design", icon: "Zap" },
+        { title: "Gen AI Foundations", href: "/learn/gen-ai-foundations", icon: "BookOpen" },
+        { title: "Gen AI Native Design", href: "/learn/gen-ai-native-design", icon: "BrainCircuit" },
     ];
 
     return (
